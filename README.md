@@ -1,0 +1,2 @@
+# BayesianNetworks
+BN assignement course
