@@ -2,18 +2,8 @@
 # R-script for importing csv database
 
 
-# install.packages("readr") # install module when you have not
-library(readr)
-install.packages("dplyr")# install module
-library(dplyr) # run module
-
 # import the data
-cbsData <- read.csv("BaseLineOneRegion_mod.csv", sep = ";")
-
-# cbsData <- read_delim("cbsData.csv", delim = ";") #returns a data frame
-#tools
-# use spec(...) to see the types, they are right now all char
-
+cbsData <- read.csv("./data/BaseLineOneRegion_mod.csv", sep = ";")
 
 # renmae and shape the data
 colnames(cbsData)[1] <- "NAME" # translate Neighborhoods and neighborhoods  column name
@@ -29,7 +19,6 @@ colnames(cbsData)[10] <- "AGEGROUP_2545"
 colnames(cbsData)[11] <- "AGEGROUP_4565"
 colnames(cbsData)[12] <- "AGEGROUP_65UP"
 colnames(cbsData)[13] <- "UNMARRIED"
-colnames(cbsData)[14] <- "MARRIED"
 colnames(cbsData)[14] <- "MARRIED"
 colnames(cbsData)[15] <- "SEPARATED"
 colnames(cbsData)[16] <- "WIDOWED"
@@ -76,7 +65,60 @@ colnames(cbsData)[56] <- "CRIME_PUB_ORDER_REL"
 colnames(cbsData)[57] <- "CRIME_VIOLENCE_SEX_REL"
 
 # tell R the names of the collumns
-REGIONCODE 	<- names(cbsData)[4]
-POPULATION 	<- names(cbsData)[5]
-FEMALE 		<- names(cbsData)[7]
-#etc
+NAME		<- names(cbsData)[1]
+MUNICIPALLITY	<- names(cbsData)[2]
+REGIONTYPE	<- names(cbsData)[3]
+REGIONCODE	<- names(cbsData)[4]
+POPULATION	<- names(cbsData)[5]
+MALE		<- names(cbsData)[6]
+FEMALE		<- names(cbsData)[7]
+AGEGROUP_015	<- names(cbsData)[8]
+AGEGROUP_1525	<- names(cbsData)[9]
+AGEGROUP_2545	<- names(cbsData)[10]
+AGEGROUP_4565	<- names(cbsData)[11]
+AGEGROUP_65UP	<- names(cbsData)[12]
+UNMARRIED	<- names(cbsData)[13]
+MARRIED		<- names(cbsData)[14]
+SEPARATED	<- names(cbsData)[15]
+WIDOWED		<- names(cbsData)[16]
+WESTERN_ORIG	<- names(cbsData)[17]
+NONWESTERN_ORIG	<- names(cbsData)[18]
+MOROCCO_ORIG	<- names(cbsData)[19]
+ABC_ORIG	<- names(cbsData)[20]
+SURINAME_ORIG	<- names(cbsData)[21]
+TURKEY_ORIG	<- names(cbsData)[22]
+OTHER_ORIG	<- names(cbsData)[23]
+BIRTH_REL	<- names(cbsData)[25]
+MORTALITY_REL	<- names(cbsData)[26]
+HH_TOT		<- names(cbsData)[27]
+SINGLE_HH_TOT	<- names(cbsData)[28]
+NOCHILD_HH_TOT	<- names(cbsData)[29]
+CHILD_HH_TOT	<- names(cbsData)[30]
+AVG_HH_SIZE	<- names(cbsData)[31]
+POP_DENSITY	<- names(cbsData)[32]
+AVG_HOUSE_VALUE	<- names(cbsData)[33]
+EMPTY_HOUSE_PERC	<- names(cbsData)[34]
+RENTAL_HOUSING_PERC	<- names(cbsData)[35]
+RENTAL_CORP_HOUSING_PERC	<- names(cbsData)[36]
+AVG_ELECTRICITY_CONS	<- names(cbsData)[37]
+AVG_GAS_CONS		<- names(cbsData)[38]
+AVG_INCOME_CAPITA	<- names(cbsData)[39]
+INCOME_LOW40PCT		<- names(cbsData)[40]
+INCOME_HIGH20PCT	<- names(cbsData)[41]
+INCOME_LOW		<- names(cbsData)[42]
+INCOME_SOCMIN		<- names(cbsData)[43]
+#person_per type of benefit assistance #<- names(cbsData)[18]wat is dat?
+SOCSEC_AO		<- names(cbsData)[44]
+SOCSEC_WW		<- names(cbsData)[45]
+SOCSEC_AOW		<- names(cbsData)[46]
+BUSINESS_LOCATIONS	<- names(cbsData)[47]
+CAR_PER_HH		<- names(cbsData)[48]
+GEN_DIST_GP		<- names(cbsData)[49]
+GEN_DIST_SUPERMARKET	<- names(cbsData)[50]
+GEN_DIST_DAYCARE	<- names(cbsData)[51]
+GEN_DIST_SCHOOL		<- names(cbsData)[52]
+LAND_SIZE		<- names(cbsData)[53]
+PEOPLE_PER_KM2		<- names(cbsData)[54]
+CRIME_BURGLARY_REL	<- names(cbsData)[55]
+CRIME_PUB_ORDER_REL	<- names(cbsData)[56]
+CRIME_VIOLENCE_SEX_REL	<- names(cbsData)[57]
