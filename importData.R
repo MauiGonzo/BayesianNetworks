@@ -4,6 +4,7 @@
 
 # import the data
 cbsData <- read.csv("./data/BaseLineOneRegion_mod.csv", sep = ";")
+cbsData <- na.omit(cbsData)
 
 # renmae and shape the data
 colnames(cbsData)[1] <- "NAME" # translate Neighborhoods and neighborhoods  column name
