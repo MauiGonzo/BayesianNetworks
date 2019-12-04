@@ -3,8 +3,11 @@
 
 
 # import the data
-cbsData <- read.csv("./data/BaseLineOneRegion_mod.csv", sep = ";")
-cbsData <- na.omit(cbsData)
+# cbsData <- read.csv("./data/BaseLineOneRegion_mod.csv", sep = ";")
+cbsData <- read.csv("./data/cbsData.csv", sep = ";")
+
+#remove NA
+cbsData <- na.omit(cbsData) 
 
 # renmae and shape the data
 colnames(cbsData)[1] <- "NAME" # translate Neighborhoods and neighborhoods  column name
@@ -49,10 +52,10 @@ colnames(cbsData)[39] <- "INCOME_LOW40PCT"
 colnames(cbsData)[40] <- "INCOME_HIGH20PCT"
 colnames(cbsData)[41] <- "INCOME_LOW"
 colnames(cbsData)[42] <- "INCOME_SOCMIN"
-colnames(cbsData)[43] <- "person_per type of benefit assistance" #wat is dat?
-colnames(cbsData)[44] <- "SOCSEC_AO" #unfit for labor
-colnames(cbsData)[45] <- "SOCSEC_WW" #unfit for work
-colnames(cbsData)[46] <- "SOCSEC_AOW"
+colnames(cbsData)[43] <- "SOCSEC_NO_INCOME" #bijstand
+colnames(cbsData)[44] <- "SOCSEC_AO" #unfit for labor - arbeidsongeschiktheid
+colnames(cbsData)[45] <- "SOCSEC_WW" #unfit for work - werkloosheidwet
+colnames(cbsData)[46] <- "SOCSEC_AOW" # basic social pension after retirement
 colnames(cbsData)[47] <- "BUSINESS_LOCATIONS"
 colnames(cbsData)[48] <- "CAR_PER_HH"
 colnames(cbsData)[49] <- "GEN_DIST_GP"
@@ -108,10 +111,10 @@ INCOME_LOW40PCT		<- names(cbsData)[39]
 INCOME_HIGH20PCT	<- names(cbsData)[40]
 INCOME_LOW		<- names(cbsData)[41]
 INCOME_SOCMIN		<- names(cbsData)[42]
-#person_per type of benefit assistance #<- names(cbsData)[18]wat is dat?
-SOCSEC_AO		<- names(cbsData)[44]
-SOCSEC_WW		<- names(cbsData)[45]
-SOCSEC_AOW		<- names(cbsData)[47]
+SOCSEC_NO_INCOME <- names(cbsData)[45] # 'bijstand'
+SOCSEC_AO		<- names(cbsData)[44] # 'arbeids ongeschikt' unable to work
+SOCSEC_WW		<- names(cbsData)[45] # 'werkloosheid wet'
+SOCSEC_AOW		<- names(cbsData)[47] # 'algemene ouderdomswet' social basic pension
 BUSINESS_LOCATIONS	<- names(cbsData)[48]
 CAR_PER_HH		<- names(cbsData)[49]
 GEN_DIST_GP		<- names(cbsData)[49]
