@@ -25,3 +25,4 @@ source("importData.R")
 source("preProcessData.R")
 
 source("variableTesting.R")
+source("dagModel.R") 

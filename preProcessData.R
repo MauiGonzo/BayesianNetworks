@@ -2,11 +2,37 @@
 # preProcessData.R
 #
 # pre processing of the data 
+#####################################################################
+# status per 5-12
+# TODO: modify / create columns so they fit with the nodes in the dag
+# Age 				: TODO: create average age collum
+# BUSINESS_LOCATIONS 		: TODO: create kind of average
+# LAND_SIZE 			: should be fine the way it is
+# AVG_INCOME_CAPITA 		: OK
+# BIRTH_REL 			: OK
+# CAR_PER_HH 			: OK
+# CRIME_TOTAL 			: DONE: create cummulative crime column
+# MORTALITY_REL			: CHECK IF DONE: create average age collum
+# Distance_to_public_services 	: TODO: create average collum
+# AVG_ELECTRICITY_CONS 		: CHECK: create average collum
+# EMPTY_HOUSE_PERC 		: TODO: create kind of average collum
+# IncomeDistribution 		: TODO: create kind of average age collum
+# MARRIED 			: TODO: create percentage married (or simmilar)
+# POP_DENSITY 			: OK
+# POPULATION 			: OK
+# AVG_HOUSE_VALUE 		: CHECK IF OK: create average age collum
+# SEX 				: TODO: create percentage female collumn
+# SocialSecurity 		: TODO: create kind of average collum
+# Types_of_Households 		: TODO: create kind of average
+# Types_of_property 		: TODO: create kind of average
+# Urbanization 		: TODO: create kind of average (I am afraid this is not in the dataset, propose to leave it out...)
+#####################################################################
 
 # etc
 # filter data, make data useable for cont network
-cbsData <- subset(cbsData, grepl("Neighborhood*", REGIONTYPE))  # any regex possible
-View(cbsData)
+# cbsData <- subset(cbsData, grepl("Neighborhood*", REGIONTYPE))  # any regex possible
+cbsData <- subset(cbsData, grepl("Buurt*", REGIONTYPE))  # any regex possible
+#View(cbsData)
 
 ### Handle "," AGE ###
 #
