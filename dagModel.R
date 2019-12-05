@@ -1,8 +1,7 @@
 # dag model
 # TODO: edit the variable names
-library(daggity)
 
-g <- daggity('dag {
+g <- dagitty('dag {
 Age [pos="-2.280,-0.022"]
 BUSINESS_LOCATIONS [pos="-0.842,-0.064"]
 LAND_SIZE [pos="-2.302,-0.065"]
@@ -54,3 +53,4 @@ Types_of_property -> AVG_ELECTRICITY_CONS
 Types_of_property -> Types_of_Households
 }
 ')
+plot(g)

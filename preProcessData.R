@@ -5,7 +5,8 @@
 
 # etc
 # filter data, make data useable for cont network
-cbsData <- subset(cbsData, grepl("Neighborhood*", REGIONTYPE))  # any regex possible
+# cbsData <- subset(cbsData, grepl("Neighborhood*", REGIONTYPE))  # any regex possible
+cbsData <- subset(cbsData, grepl("Buurt*", REGIONTYPE))  # any regex possible
 
 ### Handle "," AGE ###
 #
