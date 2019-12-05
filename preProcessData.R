@@ -25,10 +25,10 @@ cbsData[8:12] <- lapply(cbsData[8:12], as.numeric)
 
 #Compute Average For each group
 cbsData$Mean7.5<-cbsData[AGEGROUP_015]*7.5
-cbsData$Mean20<-cbsData[9]*20
-cbsData$Mean35<-cbsData[10]*35
-cbsData$Mean55<-cbsData[11]*55
-cbsData$Mean80<-cbsData[12]*80
+cbsData$Mean20<-cbsData[AGEGROUP_1525]*20
+cbsData$Mean35<-cbsData[AGEGROUP_2545]*35
+cbsData$Mean55<-cbsData[AGEGROUP_4565]*55
+cbsData$Mean80<-cbsData[AGEGROUP_65UP]*80
 
 #Compute Average Age for each Neighberhood
 #"X...0.to.15.years", "X..15.to.25.years","X..25.to.45.years","X..45.to.65.years"," X..65.years.or.older"

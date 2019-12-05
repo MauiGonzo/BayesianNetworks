@@ -16,7 +16,9 @@ library(dagitty)
 library(bnlearn)
 
 # before running anything, set a working dir
-# setwd("<your dir>")
+#setwd('D:/Assignments/Bayesian Network/Assignment/Code/BayesianNetworks/')
+#getwd()
+
 source("initPackages.R")
 source("importData.R")
 
