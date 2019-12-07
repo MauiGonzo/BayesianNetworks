@@ -38,9 +38,8 @@
 
 
 
-#Delete other columns
+#Delete other columns,I think, we can use AVG_HH_SIZE 
 cbsData = subset(cbsData, select = -c(HH_TOT,SINGLE_HH_TOT,NOCHILD_HH_TOT,CHILD_HH_TOT))
-
 
 
 ### Handle "," AGE###
@@ -74,7 +73,6 @@ if(!"AVG_AGE" %in% colnames(cbsData))
   #Delete other columns
   cbsData = subset(cbsData, select = -c(AGEGROUP_015,AGEGROUP_1525,AGEGROUP_2545,AGEGROUP_4565,AGEGROUP_65UP,Mean7.5,Mean20,Mean35,Mean55,Mean80,AgeSum,AgeCount))
 }
-
 
 ### Handle "," POPULATION ####
 #
