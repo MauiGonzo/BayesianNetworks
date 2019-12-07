@@ -111,12 +111,12 @@ INCOME_LOW40PCT		<- names(cbsData)[39]
 INCOME_HIGH20PCT	<- names(cbsData)[40]
 INCOME_LOW		<- names(cbsData)[41]
 INCOME_SOCMIN		<- names(cbsData)[42]
-SOCSEC_NO_INCOME <- names(cbsData)[45] # 'bijstand'
+SOCSEC_NO_INCOME <- names(cbsData)[43] # 'bijstand'
 SOCSEC_AO		<- names(cbsData)[44] # 'arbeids ongeschikt' unable to work
 SOCSEC_WW		<- names(cbsData)[45] # 'werkloosheid wet'
-SOCSEC_AOW		<- names(cbsData)[47] # 'algemene ouderdomswet' social basic pension
-BUSINESS_LOCATIONS	<- names(cbsData)[48]
-CAR_PER_HH		<- names(cbsData)[49]
+SOCSEC_AOW		<- names(cbsData)[46] # 'algemene ouderdomswet' social basic pension
+BUSINESS_LOCATIONS	<- names(cbsData)[47]
+CAR_PER_HH		<- names(cbsData)[48]
 GEN_DIST_GP		<- names(cbsData)[49]
 GEN_DIST_SUPERMARKET	<- names(cbsData)[50]
 GEN_DIST_DAYCARE	<- names(cbsData)[51]

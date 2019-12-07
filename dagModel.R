@@ -2,7 +2,7 @@
 # TODO: edit the variable names
 
 g <- dagitty('dag {
-Age [pos="-2.280,-0.022"]
+AVG_AGE [pos="-2.280,-0.022"]
 BUSINESS_LOCATIONS [pos="-0.842,-0.064"]
 LAND_SIZE [pos="-2.302,-0.065"]
 AVG_INCOME_CAPITA [pos="1.071,-0.051"]
@@ -10,47 +10,47 @@ BIRTH_REL [pos="-1.643,-0.023"]
 CAR_PER_HH [pos="0.684,-0.071"]
 CRIME_TOTAL [outcome,pos="1.255,-0.023"]
 MORTALITY_REL [pos="-1.946,-0.022"]
-Distance_to_public_services [pos="-0.090,-0.080"]
+GEN_DIST_PUBLICSERVICES [pos="-0.090,-0.080"]
 AVG_ELECTRICITY_CONS [pos="-0.240,-0.068"]
 EMPTY_HOUSE_PERC [pos="-0.086,-0.039"]
 IncomeDistribution [pos="0.662,-0.059"]
-MARRIED [pos="-1.049,-0.025"]
+PERC_MARRIED [pos="-1.049,-0.025"]
 POP_DENSITY [pos="-1.339,-0.066"]
 POPULATION [exposure,pos="-2.104,-0.042"]
 AVG_HOUSE_VALUE [pos="-1.027,-0.052"]
-SEX [pos="-1.256,-0.035"]
-SocialSecurity [pos="1.339,-0.063"]
-Types_of_Households [pos="-0.631,-0.043"]
-Types_of_property [pos="-0.099,-0.053"]
-Urbanization [pos="-1.207,-0.077"]
-Age -> MORTALITY_REL
-Age -> POPULATION
+PERC_FEMALE [pos="-1.256,-0.035"]
+PERC_SOCSEC [pos="1.339,-0.063"]
+AVG_HH_SIZE [pos="-0.631,-0.043"]
+EMPTY_HOUSE_PERC [pos="-0.099,-0.053"]
+# Urbanization [pos="-1.207,-0.077"] # may want to leave this on out
+AVG_AGE -> MORTALITY_REL
+AVG_AGE -> POPULATION
 BUSINESS_LOCATIONS -> AVG_HOUSE_VALUE
 LAND_SIZE -> POP_DENSITY
 LAND_SIZE -> POPULATION
 AVG_INCOME_CAPITA -> CRIME_TOTAL
 BIRTH_REL -> POPULATION
-CAR_PER_HH -> Distance_to_public_services
+CAR_PER_HH -> GEN_DIST_PUBLICSERVICES
 MORTALITY_REL -> POPULATION
-Distance_to_public_services -> CRIME_TOTAL
+GEN_DIST_PUBLICSERVICES -> CRIME_TOTAL
 AVG_ELECTRICITY_CONS -> CRIME_TOTAL
 EMPTY_HOUSE_PERC -> CRIME_TOTAL
 IncomeDistribution -> AVG_INCOME_CAPITA
 IncomeDistribution -> CAR_PER_HH
 IncomeDistribution -> CRIME_TOTAL
-IncomeDistribution -> SocialSecurity
+IncomeDistribution -> PERC_SOCSEC
 POP_DENSITY -> BUSINESS_LOCATIONS
-POP_DENSITY -> Distance_to_public_services
+POP_DENSITY -> GEN_DIST_PUBLICSERVICES
 POP_DENSITY -> AVG_HOUSE_VALUE
 POP_DENSITY -> Urbanization
 POPULATION -> POP_DENSITY
-POPULATION -> SEX
-SEX -> CRIME_TOTAL
-SocialSecurity -> CRIME_TOTAL
-Types_of_Households -> AVG_ELECTRICITY_CONS
-Types_of_Households -> AVG_HOUSE_VALUE
-Types_of_property -> AVG_ELECTRICITY_CONS
-Types_of_property -> Types_of_Households
+POPULATION -> PERC_FEMALE
+PERC_FEMALE -> CRIME_TOTAL
+PERC_SOCSEC -> CRIME_TOTAL
+AVG_HH_SIZE -> AVG_ELECTRICITY_CONS
+AVG_HH_SIZE -> AVG_HOUSE_VALUE
+EMPTY_HOUSE_PERC -> AVG_ELECTRICITY_CONS
+EMPTY_HOUSE_PERC -> AVG_HH_SIZE
 }
 ')
 plot(g)
