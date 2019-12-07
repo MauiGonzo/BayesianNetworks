@@ -5,28 +5,28 @@
 #####################################################################
 # status per 5-12
 # TODO: modify / create columns so they fit with the nodes in the dag
-# IMMIGRATION : TODO: create percentage of Non Western ()
-# Age 				: OK: create average age collum
-# BUSINESS_LOCATIONS 		: TODO: create kind of average
-# LAND_SIZE 			: should be fine the way it is
-# AVG_INCOME_CAPITA 		: OK
-# BIRTH_REL 			: OK
-# CAR_PER_HH 			: OK
-# CRIME_TOTAL 			: DONE: create cummulative crime column
-# MORTALITY_REL			: CHECK IF DONE: create average age collum
+# IMMIGRATION             : TODO: create percentage of Non Western ()
+# Age 			              : DONE: AVG_AGE
+# BUSINESS_LOCATIONS 		  : TODO: create kind of average
+# LAND_SIZE 			        : should be fine the way it is
+# AVG_INCOME_CAPITA 		  : OK
+# BIRTH_REL 			        : OK
+# CAR_PER_HH 			        : OK
+# CRIME_TOTAL 			      : DONE: create cummulative crime column
+# MORTALITY_REL			      : CHECK IF DONE: create average age collum
 # Distance_to_public_services 	: TODO: create average collum
-# AVG_ELECTRICITY_CONS 		: CHECK: create average collum
-# EMPTY_HOUSE_PERC 		: TODO: create kind of average collum
-# IncomeDistribution 		: TODO: create kind of average age collum
-# MARRIED 			: TODO: create percentage married (or simmilar)
-# POP_DENSITY 			: OK
-# POPULATION 			: OK
-# AVG_HOUSE_VALUE 		: CHECK IF OK: create average age collum
-# SEX 				: TODO: create percentage female collumn
-# SocialSecurity 		: TODO: create kind of average collum
+# AVG_ELECTRICITY_CONS 	  : CHECK: create average collum
+# EMPTY_HOUSE_PERC 		    : TODO: create kind of average collum
+# IncomeDistribution 		  : TODO: create kind of average age collum
+# MARRIED 			          : TODO: create percentage married (or simmilar)
+# POP_DENSIT   	          : OK
+# POPULATION 			        : OK
+# AVG_HOUSE_VALUE 		    : CHECK IF OK: create average age collum
+# SEX 				            : TODO: create percentage female collumn
+# SocialSecurity 		      : TODO: create kind of average collum
 # Types_of_Households 		: TODO: create kind of average (we can use  (AVG_HH_SIZE) )
-# Types_of_property 		: TODO: create kind of average
-# Urbanization 		: TODO: create kind of average (I am afraid this is not in the dataset, propose to leave it out...)
+# Types_of_property 		  : TODO: create kind of average
+# Urbanization 		        : TODO: create kind of average (I am afraid this is not in the dataset, propose to leave it out...)
 #####################################################################
 
 # etc
@@ -83,7 +83,7 @@ cbsData[POPULATION]<-gsub("\\,", "", cbsData$POPULATION)
 #Convert to numeric
 cbsData[POPULATION]<- lapply(cbsData[POPULATION], as.numeric)
 
-cbsData <- filter(cbsData, POPULATION > 5) #results in to many zeros  
+cbsData <- filter(cbsData, POPULATION > 5) #remove zero populations
 
 
 ###compute MARRIED % ###
@@ -151,21 +151,13 @@ if(!"AVG_ENERGY_CONS" %in% colnames(cbsData))
 #
 if(!"GEN_DIST_PUBLICSERVICES" %in% colnames(cbsData))
 {
-  cbsData[c(GEN_DIST_DAYCARE,GEN_DIST_GP,GEN_DIST_SCHOOL,GEN_DIST_SUPERMARKET)]<-lapply(lapply(cbsData[c(GEN_DIST_DAYCARE,GEN_DIST_GP,GEN_DIST_SCHOOL,GEN_DIST_SUPERMARKET)], as.character),as.numeric)
-  #Replace NA with 0
-  #cbsData[c(GEN_DIST_DAYCARE,GEN_DIST_GP,GEN_DIST_SCHOOL,GEN_DIST_SUPERMARKET)][is.na(cbsData[c(GEN_DIST_DAYCARE,GEN_DIST_GP,GEN_DIST_SCHOOL,GEN_DIST_SUPERMARKET)])] <- 0
+  sc <- grep("GEN_DIST_GP",colnames(cbsData))
+  ec <- grep("GEN_DIST_SCHOOL", colnames(cbsData))
+  cbsData[sc:ec]<-lapply(cbsData[sc:ec], as.numeric)
   cbsData$GEN_DIST_PUBLICSERVICES <-(cbsData$GEN_DIST_DAYCARE + cbsData$GEN_DIST_GP + cbsData$GEN_DIST_SCHOOL + cbsData$GEN_DIST_SUPERMARKET)/4
-  #Delete other columns
+  #Delete obsolete columns
   cbsData = subset(cbsData, select = -c(GEN_DIST_DAYCARE,GEN_DIST_GP,GEN_DIST_SCHOOL,GEN_DIST_SUPERMARKET) )
 }
-
-### Numberic CRIME
-#
-# counter <- 55
-# for (crime_type in c(1,2,3)){
-#   cbsData[counter] <- as.numeric(as.character(cbsData[,counter]))
-#   counter = counter + 1
-# }
 
 ###compute CRIME_TOTAL ###
 #
