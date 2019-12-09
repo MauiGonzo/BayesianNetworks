@@ -190,5 +190,59 @@ if(!"CRIME_TOTAL" %in% colnames(cbsData))
 
 }
 
+##AVG_HH_SIZE
+cbsData[AVG_HH_SIZE ]<-lapply(cbsData[AVG_HH_SIZE ], as.character)
+#Convert to numeric
+cbsData[AVG_HH_SIZE]<- lapply(cbsData[AVG_HH_SIZE], as.numeric)
+
+##MORTALITY_REL
+cbsData[MORTALITY_REL ]<-lapply(cbsData[MORTALITY_REL ], as.character)
+#Convert to numeric
+cbsData[MORTALITY_REL]<- lapply(cbsData[MORTALITY_REL], as.numeric)
+
+##BIRTH_REL
+cbsData[BIRTH_REL ]<-lapply(cbsData[BIRTH_REL ], as.character)
+#Convert to numeric
+cbsData[BIRTH_REL]<- lapply(cbsData[BIRTH_REL], as.numeric)
+
+##POP_DENSITY
+cbsData[POP_DENSITY ]<-lapply(cbsData[POP_DENSITY ], as.character)
+#Convert to numeric
+cbsData[POP_DENSITY]<- lapply(cbsData[POP_DENSITY], as.numeric)
+
+##CAR_PER_HH
+cbsData[CAR_PER_HH ]<-lapply(cbsData[CAR_PER_HH ], as.character)
+#Convert to numeric
+cbsData[CAR_PER_HH]<- lapply(cbsData[CAR_PER_HH], as.numeric)
+
+##LAND_SIZE
+cbsData[LAND_SIZE ]<-lapply(cbsData[LAND_SIZE ], as.character)
+#Convert to numeric
+cbsData[LAND_SIZE]<- lapply(cbsData[LAND_SIZE], as.numeric)
+
+##BUSINESS_LOCATIONS
+cbsData[BUSINESS_LOCATIONS ]<-lapply(cbsData[BUSINESS_LOCATIONS ], as.character)
+#Convert to numeric
+cbsData[BUSINESS_LOCATIONS]<- lapply(cbsData[BUSINESS_LOCATIONS], as.numeric)
+
+##EMPTY_HOUSE_PERC
+cbsData[EMPTY_HOUSE_PERC ]<-lapply(cbsData[EMPTY_HOUSE_PERC ], as.character)
+#Convert to numeric
+cbsData[EMPTY_HOUSE_PERC]<- lapply(cbsData[EMPTY_HOUSE_PERC], as.numeric)
+
+
+##AVG_HOUSE_VALUE
+cbsData[AVG_HOUSE_VALUE ]<-lapply(cbsData[AVG_HOUSE_VALUE ], as.character)
+#Convert to numeric
+cbsData[AVG_HOUSE_VALUE]<- lapply(cbsData[AVG_HOUSE_VALUE], as.numeric)
+
+
+
 sapply(cbsData, class) 
+
+
+
+
+
+
 
