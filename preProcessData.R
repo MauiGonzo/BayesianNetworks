@@ -240,7 +240,14 @@ cbsData[AVG_HOUSE_VALUE]<- lapply(cbsData[AVG_HOUSE_VALUE], as.numeric)
 
 sapply(cbsData, class) 
 
-
+cbsData$AVG_HH_SIZE <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$AVG_HH_SIZE)))
+cbsData$PERC_MARRIED <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$PERC_MARRIED)))
+cbsData$AVG_INCOME_CAPITA <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$AVG_INCOME_CAPITA)))
+cbsData$CAR_PER_HH <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$CAR_PER_HH)))
+cbsData$GEN_DIST_PUBLICSERVICES <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$GEN_DIST_PUBLICSERVICES)))
+cbsData$PERC_FEMALE <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$PERC_FEMALE)))
+cbsData$PERC_SOCSEC <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$PERC_SOCSEC)))
+cbsData$INCOME_HIGH20PCT <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$INCOME_HIGH20PCT)))
 
 
 
