@@ -32,14 +32,17 @@
 # etc
 # filter data, make data useable for cont network
 # cbsData <- subset(cbsData, grepl("Neighborhood*", REGIONTYPE))  # any regex possible
-# cbsData <- subset(cbsData, grepl("Buurt*", REGIONTYPE))  # any regex possible
-#rm(list = ls())
+cbsData <- subset(cbsData, grepl("Wijk*", REGIONTYPE))  # any regex possible
+
+cbsData$INCOME_HIGH20PCT <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$INCOME_HIGH20PCT)))
+cbsData$INCOME_SOCMIN <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$INCOME_SOCMIN)))
 
 #Delete other columns,I think, we can use AVG_HH_SIZE 
 if("HH_TOT" %in% colnames(cbsData))
 {
   cbsData = subset(cbsData, select = -c(HH_TOT,SINGLE_HH_TOT,NOCHILD_HH_TOT,CHILD_HH_TOT))
 }
+cbsData$AVG_HH_SIZE <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$AVG_HH_SIZE)))
 
 ### Handle "," AGE###
 #
@@ -93,15 +96,15 @@ cbsData <- subset(cbsData, POPULATION > 5) #remove zero populations
 ###compute MARRIED % ###
 if(!"PERC_MARRIED" %in% colnames(cbsData))
 {
-  cbsData$PERC_MARRIED <- cbsData$MARRIED / cbsData$POPULATION * 100
-  #Delete other columns
+  cbsData$PERC_MARRIED <- as.numeric(as.character(cbsData$MARRIED)) / as.numeric(as.character(cbsData$POPULATION)) * 100
+  #Delete other columnss
   cbsData = subset(cbsData, select = -c(UNMARRIED,SEPARATED,WIDOWED,MARRIED))
 }
 
 ###compute SEX: FEMALE % ###
 if(!"PERC_FEMALE" %in% colnames(cbsData))
 {
-  cbsData$PERC_FEMALE <- cbsData$FEMALE / cbsData$POPULATION * 100
+  cbsData$PERC_FEMALE <- as.numeric(as.character(cbsData$FEMALE)) / as.numeric(as.character(cbsData$POPULATION)) * 100
   #Delete other columns
   cbsData = subset(cbsData, select = -c(FEMALE,MALE))
 }
@@ -190,10 +193,7 @@ if(!"CRIME_TOTAL" %in% colnames(cbsData))
 
 }
 
-##AVG_HH_SIZE
-cbsData[AVG_HH_SIZE ]<-lapply(cbsData[AVG_HH_SIZE ], as.character)
-#Convert to numeric
-cbsData[AVG_HH_SIZE]<- lapply(cbsData[AVG_HH_SIZE], as.numeric)
+
 
 ##MORTALITY_REL
 cbsData[MORTALITY_REL ]<-lapply(cbsData[MORTALITY_REL ], as.character)
@@ -209,11 +209,6 @@ cbsData[BIRTH_REL]<- lapply(cbsData[BIRTH_REL], as.numeric)
 cbsData[POP_DENSITY ]<-lapply(cbsData[POP_DENSITY ], as.character)
 #Convert to numeric
 cbsData[POP_DENSITY]<- lapply(cbsData[POP_DENSITY], as.numeric)
-
-##CAR_PER_HH
-cbsData[CAR_PER_HH ]<-lapply(cbsData[CAR_PER_HH ], as.character)
-#Convert to numeric
-cbsData[CAR_PER_HH]<- lapply(cbsData[CAR_PER_HH], as.numeric)
 
 ##LAND_SIZE
 cbsData[LAND_SIZE ]<-lapply(cbsData[LAND_SIZE ], as.character)
@@ -240,16 +235,10 @@ cbsData[AVG_HOUSE_VALUE]<- lapply(cbsData[AVG_HOUSE_VALUE], as.numeric)
 
 sapply(cbsData, class) 
 
-cbsData$AVG_HH_SIZE <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$AVG_HH_SIZE)))
-cbsData$PERC_MARRIED <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$PERC_MARRIED)))
+
+cbsData$INCOME_LOW40PCT <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$INCOME_LOW40PCT)))
 cbsData$AVG_INCOME_CAPITA <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$AVG_INCOME_CAPITA)))
 cbsData$CAR_PER_HH <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$CAR_PER_HH)))
 cbsData$GEN_DIST_PUBLICSERVICES <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$GEN_DIST_PUBLICSERVICES)))
-cbsData$PERC_FEMALE <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$PERC_FEMALE)))
+cbsData$INCOME_LOW <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$INCOME_LOW)))
 cbsData$PERC_SOCSEC <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$PERC_SOCSEC)))
-cbsData$INCOME_HIGH20PCT <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$INCOME_HIGH20PCT)))
-
-
-
-
-
