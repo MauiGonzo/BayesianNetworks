@@ -33,11 +33,13 @@
 # filter data, make data useable for cont network
 # cbsData <- subset(cbsData, grepl("Neighborhood*", REGIONTYPE))  # any regex possible
 # cbsData <- subset(cbsData, grepl("Buurt*", REGIONTYPE))  # any regex possible
-
+#rm(list = ls())
 
 #Delete other columns,I think, we can use AVG_HH_SIZE 
-cbsData = subset(cbsData, select = -c(HH_TOT,SINGLE_HH_TOT,NOCHILD_HH_TOT,CHILD_HH_TOT))
-
+if("HH_TOT" %in% colnames(cbsData))
+{
+  cbsData = subset(cbsData, select = -c(HH_TOT,SINGLE_HH_TOT,NOCHILD_HH_TOT,CHILD_HH_TOT))
+}
 
 ### Handle "," AGE###
 #
@@ -85,7 +87,7 @@ cbsData[POPULATION]<-gsub("\\,", "", cbsData$POPULATION)
 #Convert to numeric
 cbsData[POPULATION]<- lapply(cbsData[POPULATION], as.numeric)
 
-cbsData <- filter(cbsData, POPULATION > 5) #remove zero populations
+cbsData <- subset(cbsData, POPULATION > 5) #remove zero populations
 
 
 ###compute MARRIED % ###
