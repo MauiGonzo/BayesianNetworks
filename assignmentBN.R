@@ -24,5 +24,8 @@ source("importData.R")
 
 source("preProcessData.R")
 
+#makes 13 plots to see all relations to CRIME_TOTAL
+source("plottingToCrime_total")
+
 source("variableTesting.R")
 source("dagModel.R") 
