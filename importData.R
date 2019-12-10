@@ -39,15 +39,15 @@ colnames(cbsData)[26] <- "HH_TOT" # household = hh
 colnames(cbsData)[27] <- "SINGLE_HH_TOT"    #no use
 colnames(cbsData)[28] <- "NOCHILD_HH_TOT"   #no use
 colnames(cbsData)[29] <- "CHILD_HH_TOT"     #no use
-colnames(cbsData)[30] <- "AVG_HH_SIZE"
-colnames(cbsData)[31] <- "POP_DENSITY"
-colnames(cbsData)[32] <- "AVG_HOUSE_VALUE"
-colnames(cbsData)[33] <- "EMPTY_HOUSE_PERC"
+colnames(cbsData)[30] <- "HH_SIZE"
+colnames(cbsData)[31] <- "DENS_POP"
+colnames(cbsData)[32] <- "HOUSE_VAL_AVG"
+colnames(cbsData)[33] <- "VACANCY"
 colnames(cbsData)[34] <- "RENTAL_HOUSING_PERC"
 colnames(cbsData)[35] <- "RENTAL_CORP_HOUSING_PERC"
 colnames(cbsData)[36] <- "AVG_ELECTRICITY_CONS"
 colnames(cbsData)[37] <- "AVG_GAS_CONS"
-colnames(cbsData)[38] <- "AVG_INCOME_CAPITA"
+colnames(cbsData)[38] <- "INCOME_AVG"
 colnames(cbsData)[39] <- "INCOME_LOW40PCT"
 colnames(cbsData)[40] <- "INCOME_HIGH20PCT"
 colnames(cbsData)[41] <- "INCOME_LOW"
@@ -98,15 +98,15 @@ HH_TOT		<- names(cbsData)[26]
 SINGLE_HH_TOT	<- names(cbsData)[27]
 NOCHILD_HH_TOT	<- names(cbsData)[28]
 CHILD_HH_TOT	<- names(cbsData)[29]
-AVG_HH_SIZE	<- names(cbsData)[30]
-POP_DENSITY	<- names(cbsData)[31]
-AVG_HOUSE_VALUE	<- names(cbsData)[32]
-EMPTY_HOUSE_PERC	<- names(cbsData)[33]
+HH_SIZE	<- names(cbsData)[30]
+DENS_POP	<- names(cbsData)[31]
+HOUSE_VAL_AVG	<- names(cbsData)[32]
+VACANCY	<- names(cbsData)[33]
 RENTAL_HOUSING_PERC	<- names(cbsData)[34]
 RENTAL_CORP_HOUSING_PERC	<- names(cbsData)[35]
 AVG_ELECTRICITY_CONS	<- names(cbsData)[36]
 AVG_GAS_CONS		<- names(cbsData)[37]
-AVG_INCOME_CAPITA	<- names(cbsData)[38]
+INCOME_AVG	<- names(cbsData)[38]
 INCOME_LOW40PCT		<- names(cbsData)[39]
 INCOME_HIGH20PCT	<- names(cbsData)[40]
 INCOME_LOW		<- names(cbsData)[41]

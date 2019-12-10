@@ -3,29 +3,9 @@
 #
 # pre processing of the data 
 #####################################################################
-# status per 5-12
+# status per 10-12
 # TODO: modify / create columns so they fit with the nodes in the dag
-# IMMIGRATION             : DONE: created percentage of Non Western ()
-# Age 			              : DONE: AVG_AGE
-# BUSINESS_LOCATIONS 		  : DONE: create kind of average LOCATIONS per 1000 inhabitants
-# LAND_SIZE 			        : OK,should be fine the way it is
-# AVG_INCOME_CAPITA 		  : OK
-# BIRTH_REL 			        : OK
-# CAR_PER_HH 			        : OK
-# CRIME_TOTAL 			      : DONE: create cummulative crime column
-# MORTALITY_REL			      : DONE: create average age collum
-# GEN_DIST_PUBLICSERVICES : DONE: created average collum
-# AVG_ELECTRICITY_CONS 	  : DONE: created average collum
-# EMPTY_HOUSE_PERC 		    : DONE: created of average collum
-# IncomeDistribution 		  : TODO: create kind of average age collum AVG_INCOME_CAPITA
-# MARRIED 			          : DONE: create percentage married (or simmilar)
-# POP_DENSIT   	          : OK
-# POPULATION 			        : OK
-# AVG_HOUSE_VALUE 		    : OK  
-# SEX 				            : DONE: create percentage female collumn: PERC_FEMALE
-# SocialSecurity 		      : DONE: created average collum
-# Types_of_Households 		: DONE: created average (we can use  (AVG_HH_SIZE) )
-# Types_of_property 		  : DONE: created average
+# IncomeDistribution 		  : TODO: create kind of average age collum INCOME_AVG
 # Urbanization 		        : TODO: created average (I am afraid this is not in the dataset, propose to leave it out...)
 #####################################################################
 
@@ -37,16 +17,16 @@ cbsData <- subset(cbsData, grepl("Wijk*", REGIONTYPE))  # any regex possible
 cbsData$INCOME_HIGH20PCT <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$INCOME_HIGH20PCT)))
 cbsData$INCOME_SOCMIN <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$INCOME_SOCMIN)))
 
-#Delete other columns,I think, we can use AVG_HH_SIZE 
+#Delete other columns,I think, we can use HH_SIZE 
 if("HH_TOT" %in% colnames(cbsData))
 {
   cbsData = subset(cbsData, select = -c(HH_TOT,SINGLE_HH_TOT,NOCHILD_HH_TOT,CHILD_HH_TOT))
 }
-cbsData$AVG_HH_SIZE <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$AVG_HH_SIZE)))
+cbsData$HH_SIZE <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$HH_SIZE)))
 
 ### Handle "," AGE###
 #
-if(!"AVG_AGE" %in% colnames(cbsData))
+if(!"AGE_AVG" %in% colnames(cbsData))
 {
   # convert to char
   cbsData[8:12]<-lapply(cbsData[8:12], as.character)
@@ -71,15 +51,16 @@ if(!"AVG_AGE" %in% colnames(cbsData))
 
   cbsData$AgeCount <- rowSums(cbsData[,c(8:12)], na.rm=TRUE)
   cbsData$AgeSum <- rowSums(cbsData[,c("Mean7.5", "Mean20","Mean35","Mean55","Mean80")], na.rm=TRUE)
-  cbsData$AVG_AGE<- cbsData$AgeSum/cbsData$AgeCount
+  cbsData$AGE_AVG<- cbsData$AgeSum/cbsData$AgeCount
   #Delete other columns
   cbsData = subset(cbsData, select = -c(AGEGROUP_015,AGEGROUP_1525,AGEGROUP_2545,AGEGROUP_4565,AGEGROUP_65UP,Mean7.5,Mean20,Mean35,Mean55,Mean80,AgeSum,AgeCount))
 }
 ###compute BUSINESS LOCATIONS ###
 #
-if(!"BUSINESS_LOCATIONS" %in% colnames(cbsData))
+if(!"BUSINESS_REL" %in% colnames(cbsData))
 {
-  cbsData$BUSINESS_LOC_PER_1000 <- cbsData$BUSINESS_LOCATIONS / cbsData$POPULATION * 1000 
+  # cbsData$BUSINESS_REL <- cbsData$BUSINESS_LOCATIONS / cbsData$POPULATION * 1000 
+  cbsData$BUSINESS_REL <- as.numeric(as.character(cbsData$BUSINESS_LOCATIONS )) / as.numeric(as.character(cbsData$POPULATION)) * 1000
 }
 ### Handle "," POPULATION ####
 #
@@ -94,17 +75,17 @@ cbsData <- subset(cbsData, POPULATION > 5) #remove zero populations
 
 
 ###compute MARRIED % ###
-if(!"PERC_MARRIED" %in% colnames(cbsData))
+if(!"MARRIED_PCT" %in% colnames(cbsData))
 {
-  cbsData$PERC_MARRIED <- as.numeric(as.character(cbsData$MARRIED)) / as.numeric(as.character(cbsData$POPULATION)) * 100
+  cbsData$MARRIED_PCT <- as.numeric(as.character(cbsData$MARRIED)) / as.numeric(as.character(cbsData$POPULATION)) * 100
   #Delete other columnss
   cbsData = subset(cbsData, select = -c(UNMARRIED,SEPARATED,WIDOWED,MARRIED))
 }
 
 ###compute SEX: FEMALE % ###
-if(!"PERC_FEMALE" %in% colnames(cbsData))
+if(!"FEMALE_PCT" %in% colnames(cbsData))
 {
-  cbsData$PERC_FEMALE <- as.numeric(as.character(cbsData$FEMALE)) / as.numeric(as.character(cbsData$POPULATION)) * 100
+  cbsData$FEMALE_PCT <- as.numeric(as.character(cbsData$FEMALE)) / as.numeric(as.character(cbsData$POPULATION)) * 100
   #Delete other columns
   cbsData = subset(cbsData, select = -c(FEMALE,MALE))
 }
@@ -117,8 +98,8 @@ if(!"PERC_IMMIGRATION_ORIG" %in% colnames(cbsData))
   cbsData = subset(cbsData, select = -c(WESTERN_ORIG,NONWESTERN_ORIG,MOROCCO_ORIG,ABC_ORIG,SURINAME_ORIG,TURKEY_ORIG,OTHER_ORIG ))
 }
 
-###compute PERC_SOCSEC % ###
-if(!"PERC_SOCSEC" %in% colnames(cbsData))
+###compute SOCSEC_PCT % ###
+if(!"SOCSEC_PCT" %in% colnames(cbsData))
 {
 
   sc <- grep("SOCSEC_NO_INCOME",colnames(cbsData))
@@ -136,19 +117,19 @@ if(!"PERC_SOCSEC" %in% colnames(cbsData))
   cbsData[sc:ec]<-lapply(cbsData[sc:ec], as.numeric)
   # cbsData[c(SOCSEC_NO_INCOME, SOCSEC_AO,SOCSEC_WW,SOCSEC_AOW)] <- lapply(cbsData[c(SOCSEC_NO_INCOME, SOCSEC_AO,SOCSEC_WW,SOCSEC_AOW)], as.numeric)
 
-  # cbsData$PERC_SOCSEC <- (cbsData$SOCSEC_NO_INCOME + cbsData$SOCSEC_AO + cbsData$SOCSEC_WW + cbsData$SOCSEC_AOW)/ cbsData$POPULATION * 100
+  # cbsData$SOCSEC_PCT <- (cbsData$SOCSEC_NO_INCOME + cbsData$SOCSEC_AO + cbsData$SOCSEC_WW + cbsData$SOCSEC_AOW)/ cbsData$POPULATION * 100
   #without AOW might be better?
-  cbsData %>%
-    mutate(PERC_SOCSEC = rowSums(.[sc:ec]/ POPULATION * 100))
-  # cbsData$PERC_SOCSEC <- (cbsData$SOCSEC_NO_INCOME + cbsData$SOCSEC_AO + cbsData$SOCSEC_WW + cbsData$SOCSEC_AOW)/ cbsData$POPULATION * 100
+  cbsData <- cbsData %>%
+    mutate(SOCSEC_PCT = rowSums(.[sc:ec]/ POPULATION * 100))
+  # cbsData$SOCSEC_PCT <- (cbsData$SOCSEC_NO_INCOME + cbsData$SOCSEC_AO + cbsData$SOCSEC_WW + cbsData$SOCSEC_AOW)/ cbsData$POPULATION * 100
   #Delete other columns
   cbsData = subset(cbsData, select = -c(SOCSEC_NO_INCOME, SOCSEC_AO, SOCSEC_WW, SOCSEC_AOW))
 }
 
 
-###compute AVG_ENERGY_CONS ###
+###compute ENERGY_AVG ###
 #
-if(!"AVG_ENERGY_CONS" %in% colnames(cbsData))
+if(!"ENERGY_AVG" %in% colnames(cbsData))
 {
   cbsData[c(AVG_GAS_CONS, AVG_ELECTRICITY_CONS)]<-lapply(cbsData[c(AVG_GAS_CONS, AVG_ELECTRICITY_CONS)], as.character)
   #Remove ","
@@ -158,19 +139,19 @@ if(!"AVG_ENERGY_CONS" %in% colnames(cbsData))
   cbsData[c(AVG_GAS_CONS, AVG_ELECTRICITY_CONS)]<- lapply(cbsData[c(AVG_GAS_CONS, AVG_ELECTRICITY_CONS)], as.numeric)
   #Replace NA with 0
   #cbsData[c(AVG_GAS_CONS, AVG_ELECTRICITY_CONS)][is.na(cbsData[c(AVG_GAS_CONS, AVG_ELECTRICITY_CONS)])] <- 0
-  cbsData$AVG_ENERGY_CONS <- cbsData$AVG_ELECTRICITY_CONS + cbsData$AVG_GAS_CONS 
+  cbsData$ENERGY_AVG <- cbsData$AVG_ELECTRICITY_CONS + cbsData$AVG_GAS_CONS 
   #Delete other columns
   cbsData = subset(cbsData, select = -c(AVG_GAS_CONS,AVG_ELECTRICITY_CONS))
 }
 
-###compute GEN_DIST_PUBLICSERVICES ###
+###compute PUB_SERV ###
 #
-if(!"GEN_DIST_PUBLICSERVICES" %in% colnames(cbsData))
+if(!"PUB_SERV" %in% colnames(cbsData))
 {
   sc <- grep("GEN_DIST_GP",colnames(cbsData))
   ec <- grep("GEN_DIST_SCHOOL", colnames(cbsData))
   cbsData[sc:ec]<-lapply(cbsData[sc:ec], as.numeric)
-  cbsData$GEN_DIST_PUBLICSERVICES <-(cbsData$GEN_DIST_DAYCARE + cbsData$GEN_DIST_GP + cbsData$GEN_DIST_SCHOOL + cbsData$GEN_DIST_SUPERMARKET)/4
+  cbsData$PUB_SERV <-(cbsData$GEN_DIST_DAYCARE + cbsData$GEN_DIST_GP + cbsData$GEN_DIST_SCHOOL + cbsData$GEN_DIST_SUPERMARKET)/4
   #Delete obsolete columns
   cbsData = subset(cbsData, select = -c(GEN_DIST_DAYCARE,GEN_DIST_GP,GEN_DIST_SCHOOL,GEN_DIST_SUPERMARKET) )
 }
@@ -194,7 +175,7 @@ if(!"CRIME_TOTAL" %in% colnames(cbsData))
 }
 
 
-
+# 
 ##MORTALITY_REL
 cbsData[MORTALITY_REL ]<-lapply(cbsData[MORTALITY_REL ], as.character)
 #Convert to numeric
@@ -205,31 +186,26 @@ cbsData[BIRTH_REL ]<-lapply(cbsData[BIRTH_REL ], as.character)
 #Convert to numeric
 cbsData[BIRTH_REL]<- lapply(cbsData[BIRTH_REL], as.numeric)
 
-##POP_DENSITY
-cbsData[POP_DENSITY ]<-lapply(cbsData[POP_DENSITY ], as.character)
+##DENS_POP
+cbsData[DENS_POP ]<-lapply(cbsData[DENS_POP ], as.character)
 #Convert to numeric
-cbsData[POP_DENSITY]<- lapply(cbsData[POP_DENSITY], as.numeric)
+cbsData[DENS_POP]<- lapply(cbsData[DENS_POP], as.numeric)
 
 ##LAND_SIZE
 cbsData[LAND_SIZE ]<-lapply(cbsData[LAND_SIZE ], as.character)
 #Convert to numeric
 cbsData[LAND_SIZE]<- lapply(cbsData[LAND_SIZE], as.numeric)
 
-##BUSINESS_LOCATIONS
-cbsData[BUSINESS_LOCATIONS ]<-lapply(cbsData[BUSINESS_LOCATIONS ], as.character)
+##VACANCY
+cbsData[VACANCY ]<-lapply(cbsData[VACANCY ], as.character)
 #Convert to numeric
-cbsData[BUSINESS_LOCATIONS]<- lapply(cbsData[BUSINESS_LOCATIONS], as.numeric)
-
-##EMPTY_HOUSE_PERC
-cbsData[EMPTY_HOUSE_PERC ]<-lapply(cbsData[EMPTY_HOUSE_PERC ], as.character)
-#Convert to numeric
-cbsData[EMPTY_HOUSE_PERC]<- lapply(cbsData[EMPTY_HOUSE_PERC], as.numeric)
+cbsData[VACANCY]<- lapply(cbsData[VACANCY], as.numeric)
 
 
-##AVG_HOUSE_VALUE
-cbsData[AVG_HOUSE_VALUE ]<-lapply(cbsData[AVG_HOUSE_VALUE ], as.character)
+##HOUSE_VAL_AVG
+cbsData[HOUSE_VAL_AVG ]<-lapply(cbsData[HOUSE_VAL_AVG ], as.character)
 #Convert to numeric
-cbsData[AVG_HOUSE_VALUE]<- lapply(cbsData[AVG_HOUSE_VALUE], as.numeric)
+cbsData[HOUSE_VAL_AVG]<- lapply(cbsData[HOUSE_VAL_AVG], as.numeric)
 
 
 
@@ -237,8 +213,8 @@ sapply(cbsData, class)
 
 
 cbsData$INCOME_LOW40PCT <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$INCOME_LOW40PCT)))
-cbsData$AVG_INCOME_CAPITA <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$AVG_INCOME_CAPITA)))
+cbsData$INCOME_AVG <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$INCOME_AVG)))
 cbsData$CAR_PER_HH <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$CAR_PER_HH)))
-cbsData$GEN_DIST_PUBLICSERVICES <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$GEN_DIST_PUBLICSERVICES)))
+cbsData$PUB_SERV <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$PUB_SERV)))
 cbsData$INCOME_LOW <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$INCOME_LOW)))
-cbsData$PERC_SOCSEC <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$PERC_SOCSEC)))
+cbsData$SOCSEC_PCT <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$SOCSEC_PCT)))
