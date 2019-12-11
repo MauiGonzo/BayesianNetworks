@@ -50,7 +50,7 @@ d <- subset(cbsData, select = c(
 impliedConditionalIndependencies( g)
 
 #test independence using a linear regression. (CRIME_TOTAL _||_ DENS | PUB_)
-summary( lm( CRIME_TOTAL ~ DENS_POP + PUB_SERV, as.data.frame(scale(d)) ) )
+summary( lm( CRIME_TOTAL ~ DENS_POP + PUB_SERV, as.data.frame(d) ) )
 
 #The coefficient of DENS_POP in this regression should be 0, but it clearly isn't. So there seems to be a
 #mistake in this network. 
@@ -58,11 +58,6 @@ summary( lm( CRIME_TOTAL ~ DENS_POP + PUB_SERV, as.data.frame(scale(d)) ) )
 localTests(g,d ,type = 'cis.chisq')
 
 net <- model2network(toString(g,"bnlearn"))
-fit <- bn.fit( net, as.data.frame(scale(d)) )
-fit
-
-#If, on the other hand, we want to perform prediction , it is better to use the raw,
-#unscaled data. That way, our predictions will be on the original grade scale (from 1 to 100).
 fit <- bn.fit( net, d )
 fit
 
