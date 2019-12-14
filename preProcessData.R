@@ -138,7 +138,7 @@ if(!"ENERGY_AVG" %in% colnames(cbsData))
   #Convert to numeric
   cbsData[c(AVG_GAS_CONS, AVG_ELECTRICITY_CONS)]<- lapply(cbsData[c(AVG_GAS_CONS, AVG_ELECTRICITY_CONS)], as.numeric)
   #Replace NA with 0
-  #cbsData[c(AVG_GAS_CONS, AVG_ELECTRICITY_CONS)][is.na(cbsData[c(AVG_GAS_CONS, AVG_ELECTRICITY_CONS)])] <- 0
+  cbsData[c(AVG_GAS_CONS, AVG_ELECTRICITY_CONS)][is.na(cbsData[c(AVG_GAS_CONS, AVG_ELECTRICITY_CONS)])] <- 0
   cbsData$ENERGY_AVG <- cbsData$AVG_ELECTRICITY_CONS + cbsData$AVG_GAS_CONS 
   #Delete other columns
   cbsData = subset(cbsData, select = -c(AVG_GAS_CONS,AVG_ELECTRICITY_CONS))
@@ -213,6 +213,7 @@ sapply(cbsData, class)
 
 
 cbsData$INCOME_LOW40PCT <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$INCOME_LOW40PCT)))
+cbsData[c(INCOME_LOW40PCT)][is.na(cbsData[c(INCOME_LOW40PCT)])] <- 0
 cbsData$INCOME_AVG <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$INCOME_AVG)))
 cbsData$CAR_PER_HH <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$CAR_PER_HH)))
 cbsData$PUB_SERV <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$PUB_SERV)))
