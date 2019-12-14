@@ -1,0 +1,99 @@
+Bayesian network parameters
+
+  Parameters of node AGE_AVG (Gaussian distribution)
+
+Conditional density: AGE_AVG
+Coefficients:
+(Intercept)  
+   43.46888  
+Standard deviation of the residuals: 3.722473 
+
+  Parameters of node BUSINESS_REL (Gaussian distribution)
+
+Conditional density: BUSINESS_REL | DENS_POP
+Coefficients:
+  (Intercept)       DENS_POP  
+129.405864031   -0.004897279  
+Standard deviation of the residuals: 191.6697 
+
+  Parameters of node CRIME_TOTAL (Gaussian distribution)
+
+Conditional density: CRIME_TOTAL | FEMALE_PCT + INCOME_LOW40PCT + MARRIED_PCT + PERC_IMMIGRATION_ORIG + PUB_SERV + SOCSEC_PCT
+Coefficients:
+          (Intercept)             FEMALE_PCT        INCOME_LOW40PCT            MARRIED_PCT  PERC_IMMIGRATION_ORIG  
+         8.556984e+01          -1.335308e+00           2.955876e-01          -3.741250e-01           8.821408e-02  
+             PUB_SERV             SOCSEC_PCT  
+         3.322159e-05          -7.979942e-16  
+Standard deviation of the residuals: 12.75336 
+
+  Parameters of node DENS_POP (Gaussian distribution)
+
+Conditional density: DENS_POP
+Coefficients:
+(Intercept)  
+   2122.146  
+Standard deviation of the residuals: 3415.193 
+
+  Parameters of node ENERGY_AVG (Gaussian distribution)
+
+Conditional density: ENERGY_AVG | HH_SIZE + PERC_IMMIGRATION_ORIG
+Coefficients:
+          (Intercept)                HH_SIZE  PERC_IMMIGRATION_ORIG  
+           1875.77959             1465.79856              -27.80772  
+Standard deviation of the residuals: 684.831 
+
+  Parameters of node FEMALE_PCT (Gaussian distribution)
+
+Conditional density: FEMALE_PCT
+Coefficients:
+(Intercept)  
+   49.72873  
+Standard deviation of the residuals: 1.90099 
+
+  Parameters of node HH_SIZE (Gaussian distribution)
+
+Conditional density: HH_SIZE | DENS_POP
+Coefficients:
+  (Intercept)       DENS_POP  
+ 2.394787e+00  -4.319879e-05  
+Standard deviation of the residuals: 0.2690993 
+
+  Parameters of node INCOME_LOW40PCT (Gaussian distribution)
+
+Conditional density: INCOME_LOW40PCT | AGE_AVG
+Coefficients:
+(Intercept)      AGE_AVG  
+33.40788965   0.01765275  
+Standard deviation of the residuals: 11.8491 
+
+  Parameters of node MARRIED_PCT (Gaussian distribution)
+
+Conditional density: MARRIED_PCT | AGE_AVG + PERC_IMMIGRATION_ORIG
+Coefficients:
+          (Intercept)                AGE_AVG  PERC_IMMIGRATION_ORIG  
+           26.7219690              0.5029344             -0.3629448  
+Standard deviation of the residuals: 5.160414 
+
+  Parameters of node PERC_IMMIGRATION_ORIG (Gaussian distribution)
+
+Conditional density: PERC_IMMIGRATION_ORIG
+Coefficients:
+(Intercept)  
+     15.547  
+Standard deviation of the residuals: 12.60422 
+
+  Parameters of node PUB_SERV (Gaussian distribution)
+
+Conditional density: PUB_SERV | BUSINESS_REL + DENS_POP + HH_SIZE
+Coefficients:
+  (Intercept)   BUSINESS_REL       DENS_POP        HH_SIZE  
+-218.99417824     0.46219529    -0.05087789   465.04843912  
+Standard deviation of the residuals: 994.8595 
+
+  Parameters of node SOCSEC_PCT (Gaussian distribution)
+
+Conditional density: SOCSEC_PCT | FEMALE_PCT + INCOME_LOW40PCT + MARRIED_PCT
+Coefficients:
+    (Intercept)       FEMALE_PCT  INCOME_LOW40PCT      MARRIED_PCT  
+   3.896813e+14     2.992565e+12    -5.712251e+12     3.142057e+12  
+Standard deviation of the residuals: 2.949567e+14 
