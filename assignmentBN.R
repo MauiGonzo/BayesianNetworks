@@ -28,4 +28,4 @@ source("preProcessData.R")
 source("plottingToCrime_total.R")
 
 source("variableTesting.R")
-source("dagModel.R") 
+source("dagModel2.R") 
