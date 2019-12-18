@@ -107,10 +107,24 @@ summary(lm(CRIME_TOTAL ~ DENS_POP + PUB_SERV, as.data.frame(scale(d))))
 # the result shows that the coefficients are not 0, which they should be!
 # lets test them all
 # localTests(g2, as.data.frame(scale(d)), type = 'cis.chisq')
+g2 <- gtemp
 localTests(g2, as.data.frame(scale(d)))
 lvsem <- toString(g2, "lavaan")
 lvsem.fit <- sem(lvsem, as.data.frame(scale(d)))
 lavaanPlot(model = lvsem.fit, coefs = T)
+summary(lvsem.fit)
+M <- lavCor(as.data.frame(scale(d)))
+localTests(g2, sample.cov = M, sample.nobs = nrow(as.data.frame(scale(d))))
+fit2 <- sem(toString(g2, "lavaan"), sample.cov = M, sample.nobs = nrow(as.data.frame(scale(d))))
+summary(fit2)
+datascaled <- as.data.frame(scale(d))
+predict.dens <- predict(lvsem.fit,node="DENS_POP", data=datascaled[,"CRIME_TOTAL",drop=F],method="bayes-lw")
+#do predictions
+net1 <- model2network(toString(g2, "bnlearn"))
+fit1 <- bn.fit(net1, datascaled)
+predict.crime <- predict(fit1, node="DENS_POP",data=datascaled[,"CRIME_TOTAL",drop=F],method="bayes-lw")
+
+plot(datascaled[,"CRIME_TOTAL"],predict.crime)
 # create new dag, in which HH_S is connected to CRIME_TOTAL
 g3 <- dagitty('dag {
   AGE_AVG [pos="1.252,-0.085"]
