@@ -117,11 +117,9 @@ if(!"SOCSEC_PCT" %in% colnames(cbsData))
   cbsData[sc:ec]<-lapply(cbsData[sc:ec], as.numeric)
   # cbsData[c(SOCSEC_NO_INCOME, SOCSEC_AO,SOCSEC_WW,SOCSEC_AOW)] <- lapply(cbsData[c(SOCSEC_NO_INCOME, SOCSEC_AO,SOCSEC_WW,SOCSEC_AOW)], as.numeric)
 
-  # cbsData$SOCSEC_PCT <- (cbsData$SOCSEC_NO_INCOME + cbsData$SOCSEC_AO + cbsData$SOCSEC_WW + cbsData$SOCSEC_AOW)/ cbsData$POPULATION * 100
   #without AOW might be better?
   cbsData <- cbsData %>%
     mutate(SOCSEC_PCT = rowSums(.[sc:ec]/ POPULATION * 100))
-  # cbsData$SOCSEC_PCT <- (cbsData$SOCSEC_NO_INCOME + cbsData$SOCSEC_AO + cbsData$SOCSEC_WW + cbsData$SOCSEC_AOW)/ cbsData$POPULATION * 100
   #Delete other columns
   cbsData = subset(cbsData, select = -c(SOCSEC_NO_INCOME, SOCSEC_AO, SOCSEC_WW, SOCSEC_AOW))
 }
@@ -218,4 +216,4 @@ cbsData$INCOME_AVG <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$INCOME_A
 cbsData$CAR_PER_HH <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$CAR_PER_HH)))
 cbsData$PUB_SERV <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$PUB_SERV)))
 cbsData$INCOME_LOW <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$INCOME_LOW)))
-cbsData$SOCSEC_PCT <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$SOCSEC_PCT)))
+# cbsData$SOCSEC_PCT <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$SOCSEC_PCT)))
