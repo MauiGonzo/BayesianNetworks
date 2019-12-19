@@ -11,7 +11,6 @@
 
 # etc
 # filter data, make data useable for cont network
-# cbsData <- subset(cbsData, grepl("Neighborhood*", REGIONTYPE))  # any regex possible
 cbsData <- subset(cbsData, grepl("Wijk*", REGIONTYPE))  # any regex possible
 
 cbsData$INCOME_HIGH20PCT <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$INCOME_HIGH20PCT)))
@@ -148,8 +147,13 @@ if(!"PUB_SERV" %in% colnames(cbsData))
 {
   sc <- grep("GEN_DIST_GP",colnames(cbsData))
   ec <- grep("GEN_DIST_SCHOOL", colnames(cbsData))
+  cbsData[sc:ec]<-lapply(cbsData[sc:ec], as.character)
+  cbsData[GEN_DIST_DAYCARE] <- gsub("\\,",".",cbsData$GEN_DIST_DAYCARE)
+  cbsData[GEN_DIST_GP] <- gsub("\\,",".",cbsData$GEN_DIST_GP)
+  cbsData[GEN_DIST_SUPERMARKET] <- gsub("\\,",".",cbsData$GEN_DIST_SUPERMARKET)
+  cbsData[GEN_DIST_SCHOOL] <- gsub("\\,",".",cbsData$GEN_DIST_SCHOOL)
   cbsData[sc:ec]<-lapply(cbsData[sc:ec], as.numeric)
-  cbsData$PUB_SERV <-(cbsData$GEN_DIST_DAYCARE + cbsData$GEN_DIST_GP + cbsData$GEN_DIST_SCHOOL + cbsData$GEN_DIST_SUPERMARKET)/4
+  cbsData$PUB_SERV <-((cbsData$GEN_DIST_DAYCARE + cbsData$GEN_DIST_GP + cbsData$GEN_DIST_SCHOOL + cbsData$GEN_DIST_SUPERMARKET)/4)
   #Delete obsolete columns
   cbsData = subset(cbsData, select = -c(GEN_DIST_DAYCARE,GEN_DIST_GP,GEN_DIST_SCHOOL,GEN_DIST_SUPERMARKET) )
 }
@@ -214,6 +218,8 @@ cbsData$INCOME_LOW40PCT <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$INC
 cbsData[c(INCOME_LOW40PCT)][is.na(cbsData[c(INCOME_LOW40PCT)])] <- 0
 cbsData$INCOME_AVG <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$INCOME_AVG)))
 cbsData$CAR_PER_HH <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$CAR_PER_HH)))
-cbsData$PUB_SERV <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$PUB_SERV)))
-cbsData$INCOME_LOW <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$INCOME_LOW)))
-# cbsData$SOCSEC_PCT <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$SOCSEC_PCT)))
+cbsData$INCOME_LOW <- as.numeric(gsub(",", ".", gsub("\\.", "", cbsData$INCOME_LOW))) 
+
+cbsData <- na.omit(cbsData) 
+
+
