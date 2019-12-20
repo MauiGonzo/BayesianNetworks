@@ -15,7 +15,7 @@ library(dplyr) # run module
 library(dagitty)
 library(bnlearn)
 
-# before running anything, set a working dir
+# before running anything, set a working dir <YOUR DIR WITH assignmentBN.R>
 #setwd('D:/Assignments/Bayesian Network/Assignment/Code/BayesianNetworks/')
 #getwd()
 
@@ -23,9 +23,5 @@ source("initPackages.R")
 source("importData.R")
 
 source("preProcessData.R")
-
-#makes 24 plots to see all relations to CRIME_TOTAL
-source("plottingToCrime_total.R")
-
-source("variableTesting.R")
-source("dagModel2.R") 
+source("prediction.R")
+# end
