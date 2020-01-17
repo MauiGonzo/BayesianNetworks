@@ -42,17 +42,19 @@ if(!"AGE_AVG" %in% colnames(cbsData))
 
   #Compute Average Age
   #Average For each group
-  cbsData$Mean7.5<-cbsData[AGEGROUP_015]*7.5
-  cbsData$Mean20<-cbsData[AGEGROUP_1525]*20
-  cbsData$Mean35<-cbsData[AGEGROUP_2545]*35
-  cbsData$Mean55<-cbsData[AGEGROUP_4565]*55
-  cbsData$Mean80<-cbsData[AGEGROUP_65UP]*80
+  Mean7.5<-cbsData[AGEGROUP_015]*7.5
+  Mean20<-cbsData[AGEGROUP_1525]*20
+  Mean35<-cbsData[AGEGROUP_2545]*35
+  Mean55<-cbsData[AGEGROUP_4565]*55
+  Mean80<-cbsData[AGEGROUP_65UP]*80
 
-  cbsData$AgeCount <- rowSums(cbsData[,c(8:12)], na.rm=TRUE)
-  cbsData$AgeSum <- rowSums(cbsData[,c("Mean7.5", "Mean20","Mean35","Mean55","Mean80")], na.rm=TRUE)
-  cbsData$AGE_AVG<- cbsData$AgeSum/cbsData$AgeCount
+  AgeSum <- Mean80+ Mean55+ Mean35+ Mean20+ Mean7.5
+  cbsData$AGE_AVG <- data.matrix(AgeSum/cbsData$POPULATION)
   #Delete other columns
-  cbsData = subset(cbsData, select = -c(AGEGROUP_015,AGEGROUP_1525,AGEGROUP_2545,AGEGROUP_4565,AGEGROUP_65UP,Mean7.5,Mean20,Mean35,Mean55,Mean80,AgeSum,AgeCount))
+  cbsData = subset(cbsData, select = -c(AGEGROUP_015,AGEGROUP_1525,AGEGROUP_2545,AGEGROUP_4565,AGEGROUP_65UP))
+  rm(AgeSum,Mean7.5,Mean20,Mean35,Mean55,Mean80)
+  colnames(cbsData)[ncol(cbsData)] <- "AGE_AVG"
+  AGE_AVG	<- names(cbsData)[ncol(cbsData)]
 }
 ###compute BUSINESS LOCATIONS ###
 #
