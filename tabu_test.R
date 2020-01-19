@@ -19,8 +19,15 @@ d <- subset(cbsData, select = c(
 ###
 testCBS <- cbsData[,-(1:4)]
 testCBS[] <- lapply(testCBS, as.factor)
-thing <- tabu(d)
-thing
+thing <- tabu(d, debug = TRUE, score = "loglik-g",maxp = 4, tabu = 12)
+
+#possible parameters to adjust for: 
+#   score (https://www.bnlearn.com/documentation/man/network.scores.html),
+#   maxp (maximum number of parents of a node.)
+#   tabu (length of the tabu-list)
+#   max.tabu (a positive integer number, the iterations tabu search can perform without improving the best network score.)
+#   max.iter 	(an integer, the maximum number of iterations.)
 
 plot.new()
-graphviz.plot(thing, shape = "ellipse", highlight = list(nodes = "CRIME_TOTAL" , col = "blue",textCol = "blue"))
+graphviz.plot(thing, shape = "ellipse", highlight = list(nodes = c("CRIME_TOTAL","FEMALE_PCT") , col = "blue",textCol = "blue"))
+              

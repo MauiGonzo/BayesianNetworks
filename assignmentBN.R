@@ -18,11 +18,16 @@ library(bnlearn)
 # before running anything, set a working dir <YOUR DIR WITH assignmentBN.R>
 #setwd('D:/Assignments/Bayesian Network/Assignment/Code/BayesianNetworks/')
 #setwd('/home/denise/Documents/Vakken/BN/BayesianNetworks')
-#getwd()
+getwd()
 
 source("initPackages.R")
 source("importData.R")
 
 source("preProcessData.R")
 source("prediction.R")
+
+# Assignment 2
+
+source("PcAlgorithms.R")
+source("tabu_test.R")
 # end
