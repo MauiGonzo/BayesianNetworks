@@ -31,5 +31,8 @@ pc.fit <- pc(suffStat = list(C = cor(d), n = rowCount), indepTest = gaussCItest,
 if (require(Rgraphviz)) {
   ## show estimated CPDAG
   par(mfrow=c(1,2))
-  plot(pc.fit, main = "Estimated CPDAG")
-    }
+  iplotPC(pc.fit)
+}
+library(graph)
+g<-pc.fit@graph
+degree(g)
