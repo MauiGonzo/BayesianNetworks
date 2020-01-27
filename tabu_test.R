@@ -47,7 +47,11 @@ dagtemp <- dagitty(paste('dag{', tabu_nodes, tabu_dag_temp, '}'))
 
 tabuNW_parentchild <- matrix(ncol = 3, nrow = length(tabuNW$nodes))
 for(i in 1:length(tabuNW$nodes)){
-  tabuNW_parentchild[i,] <- c(tabu_nodes[i],length(tabuNW$nodes[[i]]$parents), length(tabuNW_dss_aa <- tabuNW$nodes[[i]]$children))
-  tabuNW_parentchild
+  tabuNW_parentchild[i,] <- c(tabu_nodes[i],
+                              length(tabuNW$nodes[[i]]$parents),
+                              length(tabuNW$nodes[[i]]$children))
 }
+
 colnames(tabuNW_parentchild) <- c('Variable Name','Parent','Child')
+tabuNW_parentchild
+

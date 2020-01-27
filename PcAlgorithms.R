@@ -36,3 +36,4 @@ if (require(Rgraphviz)) {
 library(graph)
 g<-pc.fit@graph
 degree(g)
+

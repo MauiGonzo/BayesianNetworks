@@ -30,4 +30,7 @@ source("prediction.R")
 
 source("PcAlgorithms.R")
 source("tabu_test.R")
+
+##Adjusting 1 parameter: the score
+source("tabuParameterAdjusting.R")
 # end
