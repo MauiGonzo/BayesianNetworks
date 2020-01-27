@@ -20,7 +20,7 @@ d <- subset(cbsData, select = c(
 testCBS <- cbsData[,-(1:4)]
 testCBS[] <- lapply(testCBS, as.factor)
 thing <- tabu(d, debug = TRUE, score = "loglik-g",maxp = 4, tabu = 12)
-
+BIC(thing, d)
 #possible parameters to adjust for: 
 #   score (https://www.bnlearn.com/documentation/man/network.scores.html),
 #   maxp (maximum number of parents of a node.)
@@ -30,4 +30,20 @@ thing <- tabu(d, debug = TRUE, score = "loglik-g",maxp = 4, tabu = 12)
 
 plot.new()
 graphviz.plot(thing, shape = "ellipse", highlight = list(nodes = c("CRIME_TOTAL","FEMALE_PCT") , col = "blue",textCol = "blue"))
-              
+        
+tabu_dag_temp <- 0      
+for(i in 1:nrow(thing$arcs)){
+  tabu_dag_temp[i] <- paste(toString(thing$arcs[i,1]) , '->' , toString(thing$arcs[i,2]), '\n')
+}
+
+tabu_nodes <- 0      
+for(i in 1:nrow(thing$nodes)){
+  tabu_nodes[i] <- paste(toString(thing$nodes[i]))
+  }
+tabu_dag_temp <- toString(tabu_dag_temp)
+tabu_dag_temp
+tabu_dag_temp <- gsub(',','', tabu_dag_temp)
+dagtemp <- dagitty(paste('dag{', tabu_nodes, tabu_dag_temp, '}'))
+
+
+
